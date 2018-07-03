@@ -108,7 +108,7 @@ public class ShareUserListAdapter extends ArrayAdapter {
                 try {
                     icon.setImageDrawable(TextDrawable.createNamedAvatar(name, mAvatarRadiusDimension));
                 } catch (NoSuchAlgorithmException e) {
-                    icon.setImageResource(R.drawable.ic_user);
+                    icon.setImageResource(R.drawable.user);
                 }
             }
             userName.setText(name);
