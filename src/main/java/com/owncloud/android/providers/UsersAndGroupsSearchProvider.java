@@ -32,6 +32,7 @@ import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
 import android.provider.BaseColumns;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.widget.Toast;
 
@@ -93,7 +94,7 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
 
     @Nullable
     @Override
-    public String getType(Uri uri) {
+    public String getType(@NonNull Uri uri) {
         // TODO implement
         return null;
     }
@@ -133,7 +134,8 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
      */
     @Nullable
     @Override
-    public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
+    public Cursor query(@NonNull Uri uri, String[] projection, String selection, String[] selectionArgs,
+                        String sortOrder) {
         Log_OC.d(TAG, "query received in thread " + Thread.currentThread().getName());
 
         int match = mUriMatcher.match(uri);
@@ -203,7 +205,7 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
                         icon = R.drawable.ic_group;
                         dataUri = Uri.withAppendedPath(groupBaseUri, shareWith);
                     } else if (ShareType.FEDERATED.getValue() == type && federatedShareAllowed) {
-                        icon = R.drawable.ic_user;
+                        icon = R.drawable.user;
                         if (userName.equals(shareWith)) {
                             displayName = getContext().getString(R.string.share_remote_clarification, userName);
                         } else {
@@ -214,7 +216,7 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
                         dataUri = Uri.withAppendedPath(remoteBaseUri, shareWith);
                     } else if (ShareType.USER.getValue() == type) {
                         displayName = userName;
-                        icon = R.drawable.ic_user;
+                        icon = R.drawable.user;
                         dataUri = Uri.withAppendedPath(userBaseUri, shareWith);
                     } else if (ShareType.EMAIL.getValue() == type) {
                         icon = R.drawable.ic_email;
@@ -240,19 +242,19 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
 
     @Nullable
     @Override
-    public Uri insert(Uri uri, ContentValues values) {
+    public Uri insert(@NonNull Uri uri, ContentValues values) {
         // TODO implementation
         return null;
     }
 
     @Override
-    public int delete(Uri uri, String selection, String[] selectionArgs) {
+    public int delete(@NonNull Uri uri, String selection, String[] selectionArgs) {
         // TODO implementation
         return 0;
     }
 
     @Override
-    public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
+    public int update(@NonNull Uri uri, ContentValues values, String selection, String[] selectionArgs) {
         // TODO implementation
         return 0;
     }

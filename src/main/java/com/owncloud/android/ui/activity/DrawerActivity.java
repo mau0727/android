@@ -30,6 +30,7 @@ import android.accounts.AccountManagerFuture;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -37,6 +38,7 @@ import android.graphics.drawable.LayerDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -317,7 +319,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
-                    public boolean onNavigationItemSelected(final MenuItem menuItem) {
+                    public boolean onNavigationItemSelected(@NonNull final MenuItem menuItem) {
                         mDrawerLayout.closeDrawers();
                         // pending runnable will be executed after the drawer has been closed
                         pendingRunnable = new Runnable() {
@@ -666,7 +668,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                         Menu.NONE,
                         MENU_ORDER_ACCOUNT,
                         account.name)
-                        .setIcon(R.drawable.ic_user);
+                        .setIcon(R.drawable.user);
             }
         }
 
@@ -676,7 +678,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                 getResources().getString(R.string.prefs_add_account)).setIcon(R.drawable.ic_account_plus);
         mNavigationView.getMenu().add(R.id.drawer_menu_accounts, R.id.drawer_menu_account_manage,
                 MENU_ORDER_ACCOUNT_FUNCTION,
-                getResources().getString(R.string.drawer_manage_accounts)).setIcon(R.drawable.ic_settings);
+                getResources().getString(R.string.drawer_manage_accounts)).setIcon(R.drawable.settings);
 
         // adding sets menu group back to visible, so safety check and setting invisible
         showMenu();
@@ -892,7 +894,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
             for (int i = 0; i < mNavigationView.getMenu().size(); i++) {
                 MenuItem menuItem = mNavigationView.getMenu().getItem(i);
                 if (menuItem.getIcon() != null) {
-                    menuItem.getIcon().clearColorFilter();
+                    menuItem.getIcon().setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_ATOP);
                     menuItem.setTitle(Html.fromHtml("<font color='#000000'>" + menuItem.getTitle() + "</font>"));
                 }
             }
